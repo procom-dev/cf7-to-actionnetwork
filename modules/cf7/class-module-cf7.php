@@ -267,6 +267,74 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
                         $hook_url = str_replace( $placeholder, $value, $hook_url );
                     }
 
+                    $core_fields = [
+                        'family_name' => '',
+                        'given_name' => '',
+                        'postal_code' => '',
+                        'address_lines' => [''],
+                        'locality' => '',
+                        'region' => '',
+                        'country' => '',
+                        'address' => '',
+                        'status' => '',
+                        'number' => ''
+                    ];
+                    
+                    $person_data = [
+                        "person" => [
+                            "family_name" => "",
+                            "given_name" => "",
+                            "custom_fields" => [],
+                            "postal_addresses" => [
+                                [
+                                    "postal_code" => "",
+                                    "address_lines" => [""],
+                                    "locality" => "",
+                                    "region" => "",
+                                    "country" => ""
+                                ]
+                            ],
+                            "email_addresses" => [
+                                [
+                                    "address" => "",
+                                    "status" => ""
+                                ]
+                            ],
+                            "phone_numbers" => [
+                                [
+                                    "number" => "",
+                                    "status" => ""
+                                ]
+                            ]
+                        ],
+                        "triggers" => [
+                            "autoresponse" => [
+                                "enabled" => true
+                            ]
+                        ]
+                    ];
+                    
+                    // Fill core fields from $data
+                    foreach ($data as $key => $value) {
+                        if (in_array($key, array_keys($core_fields))) {
+                            if ($key == 'address') {
+                                $person_data["person"]["email_addresses"][0]["address"] = $value;
+                            } elseif ($key == 'status') {
+                                $person_data["person"]["email_addresses"][0]["status"] = $value;
+                            } elseif ($key == 'number') {
+                                $person_data["person"]["phone_numbers"][0]["number"] = $value;
+                            } elseif (in_array($key, ['postal_code', 'address_lines', 'locality', 'region', 'country'])) {
+                                $person_data["person"]["postal_addresses"][0][$key] = $value;
+                            } else {
+                                $person_data["person"][$key] = $value;
+                            }
+                        } else {
+                            // Treat as custom field
+                            $person_data["person"]["custom_fields"][$key] = $value;
+                        }
+                    }
+                    $data = $person_data;
+
                     /**
                      * Action: ctz_trigger_actionnetwork
                      *

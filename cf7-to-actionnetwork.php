@@ -1,12 +1,12 @@
 <?php
 /**
  *
- * @package           Cf7_To_Zapier
+ * @package           Cf7_To_ActionNetwork
  * @since             1.0.0
  *
  * Plugin Name:       CF7 to ActionNetwork
  * Plugin URI:        https://github.com/mariovalney/cf7-to-actionnetwork
- * Description:       Use Contact Form 7 as a trigger to any actionnetwork like Zapier!
+ * Description:       Use Contact Form 7 as a trigger to any actionnetwork like ActionNetwork!
  * Version:           3.0.3
  * Author:            Mário Valney
  * Author URI:        http://mariovalney.com/me
@@ -18,9 +18,9 @@
 // If this file is called directly, call the cops.
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-if ( ! class_exists( 'Cf7_To_Zapier' ) ) {
+if ( ! class_exists( 'Cf7_To_ActionNetwork' ) ) {
 
-    class Cf7_To_Zapier {
+    class Cf7_To_ActionNetwork {
 
         /**
          * The array of actions registered with WordPress.
@@ -96,7 +96,7 @@ if ( ! class_exists( 'Cf7_To_Zapier' ) ) {
 
             // Instantiate the Module's classes:
             $this->modules['cf7'] = new CFTZ_Module_CF7( $this );
-            $this->modules['actionnetwork'] = new CFTZ_Module_Zapier( $this );
+            $this->modules['actionnetwork'] = new CFTZ_Module_ActionNetwork( $this );
         }
 
         /**
@@ -215,5 +215,5 @@ if ( ! class_exists( 'Cf7_To_Zapier' ) ) {
 /**
  * Making things happening
  */
-$ctz_core = new Cf7_To_Zapier();
+$ctz_core = new Cf7_To_ActionNetwork();
 $ctz_core->run();

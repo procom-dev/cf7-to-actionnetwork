@@ -84,7 +84,7 @@ if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
                 <td>
                     <p>
                         <label for="ctz-actionnetwork-activate">
-                            <input type="checkbox" id="ctz-actionnetwork-activate" name="ctz-actionnetwork-activate" value="1" <?php checked( $activate, "1" ) ?>>
+                            <input type="checkbox" id="ctz-actionnetwork-activate" name="ctz-actionnetwork-activate" value="1" <?php checked( $activate, "1" ) ?>
                             <?php _e( 'Send to ActionNetwork', CFTZ_TEXTDOMAIN ) ?>
                         </label>
                     </p>
@@ -131,7 +131,7 @@ if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
                 <td>
                     <p>
                         <label for="ctz-actionnetwork-send-mail">
-                            <input type="checkbox" id="ctz-actionnetwork-send-mail" name="ctz-actionnetwork-send-mail" value="1" <?php checked( $send_mail, "1" ) ?>>
+                            <input type="checkbox" id="ctz-actionnetwork-send-mail" name="ctz-actionnetwork-send-mail" value="1" <?php checked( $send_mail, "1" ) ?>
                             <?php _e( 'Send CF7 mail as usually', CFTZ_TEXTDOMAIN ) ?>
                         </label>
                     </p>

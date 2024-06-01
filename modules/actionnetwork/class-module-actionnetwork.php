@@ -66,6 +66,20 @@ if ( ! class_exists( 'CFTZ_Module_ActionNetwork' ) ) {
              *
              * @since    2.3.0
              */
+
+            // Before modifying hook url logic
+            if (stripos($hook_url, "actionnetwork.org/api/v2/events/") !== false) {
+                $hook_url = rtrim($hook_url, '/') . '/attendances';
+            } elseif (stripos($hook_url, "actionnetwork.org/api/v2/fundraising_pages/") !== false) {
+                $hook_url = rtrim($hook_url, '/') . '/donations';
+            } elseif (stripos($hook_url, "actionnetwork.org/api/v2/advocacy_campaigns/") !== false) {
+                $hook_url = rtrim($hook_url, '/') . '/outreaches';
+            } elseif (stripos($hook_url, "actionnetwork.org/api/v2/petitions/") !== false) {
+                $hook_url = rtrim($hook_url, '/') . '/signatures';
+            } elseif (stripos($hook_url, "actionnetwork.org/api/v2/forms/") !== false) {
+                $hook_url = rtrim($hook_url, '/') . '/submissions';
+            }
+
             if ( apply_filters( 'ctz_ignore_default_actionnetwork', false ) ) {
                 return;
             }
