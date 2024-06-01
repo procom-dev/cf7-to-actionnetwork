@@ -4,13 +4,13 @@
  * @package           Cf7_To_Zapier
  * @since             1.0.0
  *
- * Plugin Name:       CF7 to Webhook
- * Plugin URI:        https://github.com/mariovalney/cf7-to-zapier
- * Description:       Use Contact Form 7 as a trigger to any webhook like Zapier!
+ * Plugin Name:       CF7 to ActionNetwork
+ * Plugin URI:        https://github.com/mariovalney/cf7-to-actionnetwork
+ * Description:       Use Contact Form 7 as a trigger to any actionnetwork like Zapier!
  * Version:           3.0.3
  * Author:            Mário Valney
  * Author URI:        http://mariovalney.com/me
- * Text Domain:       cf7-to-webhook
+ * Text Domain:       cf7-to-actionnetwork
  * Domain Path:       /languages
  *
  */
@@ -92,11 +92,11 @@ if ( ! class_exists( 'Cf7_To_Zapier' ) ) {
         private function add_modules() {
             // Require module files:
             require_once plugin_dir_path( __FILE__ ) . 'modules/cf7/class-module-cf7.php';
-            require_once plugin_dir_path( __FILE__ ) . 'modules/zapier/class-module-zapier.php';
+            require_once plugin_dir_path( __FILE__ ) . 'modules/actionnetwork/class-module-actionnetwork.php';
 
             // Instantiate the Module's classes:
             $this->modules['cf7'] = new CFTZ_Module_CF7( $this );
-            $this->modules['zapier'] = new CFTZ_Module_Zapier( $this );
+            $this->modules['actionnetwork'] = new CFTZ_Module_Zapier( $this );
         }
 
         /**
@@ -186,12 +186,12 @@ if ( ! class_exists( 'Cf7_To_Zapier' ) ) {
 
             // Definition of upload_dir
             if ( ! defined( 'CFTZ_UPLOAD_DIR' ) ) {
-                define( 'CFTZ_UPLOAD_DIR', 'cf7-to-webhook-uploads' );
+                define( 'CFTZ_UPLOAD_DIR', 'cf7-to-actionnetwork-uploads' );
             }
 
             // Definition of text domain
             if ( ! defined( 'CFTZ_TEXTDOMAIN' ) ) {
-                define( 'CFTZ_TEXTDOMAIN', 'cf7-to-webhook' );
+                define( 'CFTZ_TEXTDOMAIN', 'cf7-to-actionnetwork' );
             }
 
             // Running Modules (first of all)

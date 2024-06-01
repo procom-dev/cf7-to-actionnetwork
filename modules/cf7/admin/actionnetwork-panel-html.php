@@ -56,21 +56,21 @@ if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
             printf(
                 __( 'You can %s or %s.', CFTZ_TEXTDOMAIN ),
                 '<a href="https://www.paypal.com/donate?campaign_id=9AA82JCSNWNFS" target="_blank" style="color: #FFFFFF;">' . __( 'make a donation', CFTZ_TEXTDOMAIN ) . '</a>',
-                '<a href="https://wordpress.org/support/plugin/cf7-to-zapier/reviews/#new-post" target="_blank" style="color: #FFFFFF;">' . __( 'leave a review', CFTZ_TEXTDOMAIN ) . '</a>'
+                '<a href="https://wordpress.org/support/plugin/cf7-to-actionnetwork/reviews/#new-post" target="_blank" style="color: #FFFFFF;">' . __( 'leave a review', CFTZ_TEXTDOMAIN ) . '</a>'
             );
         ?>
     </p>
 <?php endif; ?>
 
 <h2>
-    <?php _e( 'Webhook', CFTZ_TEXTDOMAIN ) ?>
+    <?php _e( 'ActionNetwork', CFTZ_TEXTDOMAIN ) ?>
 </h2>
 
 <fieldset>
     <legend>
-        <?php _e( 'In these options you can activate or deactivate Webhook integration.', CFTZ_TEXTDOMAIN ); ?>
+        <?php _e( 'In these options you can activate or deactivate ActionNetwork integration.', CFTZ_TEXTDOMAIN ); ?>
         <br>
-        <?php _e( 'To integrate you should insert your webhook URL below. For example, into Zapier you can create a trigger using "Webhooks" app and choose "Catch Hook" option.', CFTZ_TEXTDOMAIN ); ?>
+        <?php _e( 'To integrate you should insert your actionnetwork URL below. For example, into ActionNetwork you can create a trigger using "ActionNetworks" app and choose "Catch Hook" option.', CFTZ_TEXTDOMAIN ); ?>
     </legend>
 
     <table class="form-table">
@@ -83,9 +83,9 @@ if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
                 </th>
                 <td>
                     <p>
-                        <label for="ctz-webhook-activate">
-                            <input type="checkbox" id="ctz-webhook-activate" name="ctz-webhook-activate" value="1" <?php checked( $activate, "1" ) ?>>
-                            <?php _e( 'Send to Webhook', CFTZ_TEXTDOMAIN ) ?>
+                        <label for="ctz-actionnetwork-activate">
+                            <input type="checkbox" id="ctz-actionnetwork-activate" name="ctz-actionnetwork-activate" value="1" <?php checked( $activate, "1" ) ?>>
+                            <?php _e( 'Send to ActionNetwork', CFTZ_TEXTDOMAIN ) ?>
                         </label>
                     </p>
                 </td>
@@ -93,23 +93,23 @@ if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
             <tr>
                 <th scope="row">
                     <label>
-                        <?php _e( 'Webhook URL', CFTZ_TEXTDOMAIN ) ?>
+                        <?php _e( 'ActionNetwork URL', CFTZ_TEXTDOMAIN ) ?>
                     </label>
                 </th>
                 <td>
                     <p>
-                        <label for="ctz-webhook-hook-url">
-                            <textarea id="ctz-webhook-hook-url" name="ctz-webhook-hook-url" rows="4" style="width: 100%;"><?php echo esc_textarea( implode( PHP_EOL, $hook_url ) ) ?></textarea>
+                        <label for="ctz-actionnetwork-hook-url">
+                            <textarea id="ctz-actionnetwork-hook-url" name="ctz-actionnetwork-hook-url" rows="4" style="width: 100%;"><?php echo esc_textarea( implode( PHP_EOL, $hook_url ) ) ?></textarea>
                         </label>
                     </p>
                     <?php if ( $activate && empty( $hook_url ) ): ?>
                         <p class="description" style="color: #D00;">
-                            <?php _e( 'You should insert webhook URL here to finish configuration.' ); ?>
+                            <?php _e( 'You should insert actionnetwork URL here to finish configuration.' ); ?>
                         </p>
                     <?php else: ?>
                         <p class="description" style="font-size: 13px;">
                             <?php
-                                _e( 'You can add multiple webhook: one per line' );
+                                _e( 'You can add multiple actionnetwork: one per line' );
 
                                 echo '<br>';
 
@@ -130,8 +130,8 @@ if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
                 </th>
                 <td>
                     <p>
-                        <label for="ctz-webhook-send-mail">
-                            <input type="checkbox" id="ctz-webhook-send-mail" name="ctz-webhook-send-mail" value="1" <?php checked( $send_mail, "1" ) ?>>
+                        <label for="ctz-actionnetwork-send-mail">
+                            <input type="checkbox" id="ctz-actionnetwork-send-mail" name="ctz-actionnetwork-send-mail" value="1" <?php checked( $send_mail, "1" ) ?>>
                             <?php _e( 'Send CF7 mail as usually', CFTZ_TEXTDOMAIN ) ?>
                         </label>
                     </p>
@@ -147,7 +147,7 @@ if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
 
 <fieldset>
     <legend>
-        <?php echo _x( 'You can add <a href="https://contactform7.com/special-mail-tags/" target="_blank">Special Mail Tags</a> or <a href="https://contactform7.com/selectable-recipient-with-pipes/" target="_blank">labels from selectable with pipes</a> to the data sent to webhook.', 'The URL should point to CF7 documentation (someday it can be translated).', CFTZ_TEXTDOMAIN ); ?>
+        <?php echo _x( 'You can add <a href="https://contactform7.com/special-mail-tags/" target="_blank">Special Mail Tags</a> or <a href="https://contactform7.com/selectable-recipient-with-pipes/" target="_blank">labels from selectable with pipes</a> to the data sent to actionnetwork.', 'The URL should point to CF7 documentation (someday it can be translated).', CFTZ_TEXTDOMAIN ); ?>
     </legend>
 
     <div style="margin: 20px 0;">
@@ -168,7 +168,7 @@ if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
             echo '<br>';
 
             printf(
-                __( 'Or add a second word to pass as key to Webhook: %s', CFTZ_TEXTDOMAIN ),
+                __( 'Or add a second word to pass as key to ActionNetwork: %s', CFTZ_TEXTDOMAIN ),
                 '<span style="font-family: monospace; font-size: 12px; font-weight: bold;">[_post_title title]</span>'
             );
         ?></p>
@@ -181,7 +181,7 @@ if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
 
 <fieldset>
     <legend>
-        <?php echo _x( 'You can add <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers" target="_blank">HTTP Headers</a> to your webhook request.', 'The URL should point to HTTP Headers documentation in your language.', CFTZ_TEXTDOMAIN ); ?>
+        <?php echo _x( 'You can add <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers" target="_blank">HTTP Headers</a> to your actionnetwork request.', 'The URL should point to HTTP Headers documentation in your language.', CFTZ_TEXTDOMAIN ); ?>
     </legend>
 
     <div style="margin: 20px 0;">
@@ -223,7 +223,7 @@ if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
 </fieldset>
 
 <h2>
-    <?php _e( 'Data sent to Webhook', CFTZ_TEXTDOMAIN ) ?>
+    <?php _e( 'Data sent to ActionNetwork', CFTZ_TEXTDOMAIN ) ?>
 </h2>
 
 <fieldset>
@@ -243,7 +243,7 @@ if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
             // Form Tags
             $form_tags = $contactform->scan_form_tags();
             foreach ( $form_tags as $tag ) {
-                $key = $tag->get_option('webhook');
+                $key = $tag->get_option('actionnetwork');
                 if (! empty($key) && ! empty($key[0])) {
                     $tags[] = $key[0];
                     continue;
@@ -268,8 +268,8 @@ if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
             echo '<br>';
 
             printf(
-                __( 'You can change field name with webhook config: %s', CFTZ_TEXTDOMAIN ),
-                '<span style="font-family: monospace; font-size: 12px; font-weight: bold;">[email* your_email webhook:email]</span>'
+                __( 'You can change field name with actionnetwork config: %s', CFTZ_TEXTDOMAIN ),
+                '<span style="font-family: monospace; font-size: 12px; font-weight: bold;">[email* your_email actionnetwork:email]</span>'
             );
         ?></p>
     </div>

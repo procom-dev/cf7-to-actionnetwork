@@ -2,7 +2,7 @@
 /**
  * CFTZ_Module_CF7
  *
- * @package         Cf7_To_Zapier
+ * @package         Cf7_To_ActionNetwork
  * @subpackage      CFTZ_Module_CF7
  * @since           1.0.0
  *
@@ -18,7 +18,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
          * The Core object
          *
          * @since    1.0.0
-         * @var      Cf7_To_Zapier    $core   The core class
+         * @var      Cf7_To_ActionNetwork    $core   The core class
          */
         private $core;
 
@@ -34,15 +34,15 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
          *
          * @since    1.0.0
          */
-        const METADATA = 'ctz_zapier';
+        const METADATA = 'ctz_actionnetwork';
 
         /**
          * Define the core functionalities into plugin.
          *
          * @since    1.0.0
-         * @param    Cf7_To_Zapier      $core   The Core object
+         * @param    Cf7_To_ActionNetwork      $core   The Core object
          */
-        public function __construct( Cf7_To_Zapier $core ) {
+        public function __construct( Cf7_To_ActionNetwork $core ) {
             $this->core = $core;
         }
 
@@ -82,7 +82,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
             }
 
             echo '<div class="notice notice-error is-dismissible">';
-            echo '<p>' . sprintf( __( "You need to install/activate %s Contact Form 7%s plugin to use %s CF7 to Webhook %s", CFTZ_TEXTDOMAIN ), '<a href="http://contactform7.com/" target="_blank">', '</a>', '<strong>', '</strong>' );
+            echo '<p>' . sprintf( __( "You need to install/activate %s Contact Form 7%s plugin to use %s CF7 to ActionNetwork %s", CFTZ_TEXTDOMAIN ), '<a href="http://contactform7.com/" target="_blank">', '</a>', '<strong>', '</strong>' );
 
             $screen = get_current_screen();
             if ( $screen->id == 'plugins' ) {
@@ -107,22 +107,22 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
          * @param    array              $panels     Panels in CF7 Administration
          */
         public function wpcf7_editor_panels( $panels ) {
-            $panels['webhook-panel'] = array(
-                'title'     => __( 'Webhook', CFTZ_TEXTDOMAIN ),
-                'callback'  => [ $this, 'webhook_panel_html' ],
+            $panels['actionnetwork-panel'] = array(
+                'title'     => __( 'ActionNetwork', CFTZ_TEXTDOMAIN ),
+                'callback'  => [ $this, 'actionnetwork_panel_html' ],
             );
 
             return $panels;
         }
 
         /**
-         * Add zapier panel HTML
+         * Add actionnetwork panel HTML
          *
          * @since    1.0.0
          * @param    WPCF7_ContactForm  $contactform    Current ContactForm Obj
          */
-        public function webhook_panel_html( WPCF7_ContactForm $contactform ) {
-            require plugin_dir_path( __FILE__ ) . 'admin/webhook-panel-html.php';
+        public function actionnetwork_panel_html( WPCF7_ContactForm $contactform ) {
+            require plugin_dir_path( __FILE__ ) . 'admin/actionnetwork-panel-html.php';
         }
 
         /**
@@ -134,13 +134,13 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
         public function wpcf7_save_contact_form( $contact_form ) {
             $new_properties = [];
 
-            if ( isset( $_POST['ctz-webhook-activate'] ) && $_POST['ctz-webhook-activate'] == '1' ) {
+            if ( isset( $_POST['ctz-actionnetwork-activate'] ) && $_POST['ctz-actionnetwork-activate'] == '1' ) {
                 $new_properties[ 'activate' ] = '1';
             } else {
                 $new_properties[ 'activate' ] = '0';
             }
 
-            if ( isset( $_POST['ctz-webhook-hook-url'] ) ) {
+            if ( isset( $_POST['ctz-actionnetwork-hook-url'] ) ) {
                 $hook_urls = array_filter( array_map( function( $hook_url ) {
                     $placeholders = self::get_hook_url_placeholders( $hook_url );
 
@@ -155,11 +155,11 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
                     }
 
                     return $hook_url;
-                }, explode( PHP_EOL, $_POST['ctz-webhook-hook-url'] ) ) );
+                }, explode( PHP_EOL, $_POST['ctz-actionnetwork-hook-url'] ) ) );
                 $new_properties[ 'hook_url' ] = $hook_urls;
             }
 
-            if ( isset( $_POST['ctz-webhook-send-mail'] ) && $_POST['ctz-webhook-send-mail'] == '1' ) {
+            if ( isset( $_POST['ctz-actionnetwork-send-mail'] ) && $_POST['ctz-actionnetwork-send-mail'] == '1' ) {
                 $new_properties[ 'send_mail' ] = '1';
             } else {
                 $new_properties[ 'send_mail' ] = '0';
@@ -210,7 +210,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
         public function wpcf7_skip_mail( $skip_mail, $contact_form ) {
             $properties = $contact_form->prop( self::METADATA );
 
-            if ( $this->can_submit_to_zapier( $contact_form ) ) {
+            if ( $this->can_submit_to_actionnetwork( $contact_form ) ) {
                 return empty( $properties['send_mail'] );
             }
 
@@ -218,7 +218,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
         }
 
         /**
-         * Action 'wpcf7_mail_sent' to send data to Zapier
+         * Action 'wpcf7_mail_sent' to send data to ActionNetwork
          *
          * @since    1.0.0
          * @param    obj                $contact_form   ContactForm Obj
@@ -226,7 +226,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
         public function wpcf7_mail_sent( $contact_form ) {
             $properties = $contact_form->prop( self::METADATA );
 
-            if ( ! $this->can_submit_to_zapier( $contact_form ) ) {
+            if ( ! $this->can_submit_to_actionnetwork( $contact_form ) ) {
                 return;
             }
 
@@ -258,7 +258,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
                          * @param $value        string      Urlencoded replace value.
                          * @param $placeholder  string      The placeholder to be replaced [$key].
                          * @param $key          string      The key of placeholder.
-                         * @param $data         string      Data to be sent to webhook.
+                         * @param $data         string      Data to be sent to actionnetwork.
                          *
                          * @since 3.0.0
                          */
@@ -268,32 +268,32 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
                     }
 
                     /**
-                     * Action: ctz_trigger_webhook
+                     * Action: ctz_trigger_actionnetwork
                      *
                      * You can add your own actions to process the hook.
-                     * We send it using CFTZ_Module_Zapier::pull_the_trigger().
+                     * We send it using CFTZ_Module_ActionNetwork::pull_the_trigger().
                      *
                      * @since  1.0.0
                      */
-                    do_action( 'ctz_trigger_webhook', $data, $hook_url, $properties, $contact_form );
+                    do_action( 'ctz_trigger_actionnetwork', $data, $hook_url, $properties, $contact_form );
                 } catch (Exception $exception) {
                     $errors[] = array(
-                        'webhook'   => $hook_url,
+                        'actionnetwork'   => $hook_url,
                         'exception' => $exception,
                     );
 
                     /**
-                     * Filter: ctz_trigger_webhook_error_message
+                     * Filter: ctz_trigger_actionnetwork_error_message
                      *
-                     * The 'ctz_trigger_webhook_error_message' filter change the message in case of error.
+                     * The 'ctz_trigger_actionnetwork_error_message' filter change the message in case of error.
                      * Default is CF7 error message, but you can access exception to create your own.
                      *
                      * You can ignore errors returning false:
-                     * add_filter( 'ctz_trigger_webhook_error_message', '__return_empty_string' );
+                     * add_filter( 'ctz_trigger_actionnetwork_error_message', '__return_empty_string' );
                      *
                      * @since 1.4.0
                      */
-                    $error_message =  apply_filters( 'ctz_trigger_webhook_error_message', $contact_form->message( 'mail_sent_ng' ), $exception );
+                    $error_message =  apply_filters( 'ctz_trigger_actionnetwork_error_message', $contact_form->message( 'mail_sent_ng' ), $exception );
 
                     // If empty ignore
                     if ( empty( $error_message ) ) continue;
@@ -310,14 +310,14 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
             if ( empty( $errors ) ) return;
 
             /**
-             * Action: ctz_trigger_webhook_errors
+             * Action: ctz_trigger_actionnetwork_errors
              *
-             * If we have errors, we skiped them in 'ctz_trigger_webhook_error_message' filter.
+             * If we have errors, we skiped them in 'ctz_trigger_actionnetwork_error_message' filter.
              * You can now submit your own error.
              *
              * @since  2.4.0
              */
-            do_action( 'ctz_trigger_webhook_errors', $errors, $contact_form );
+            do_action( 'ctz_trigger_actionnetwork_errors', $errors, $contact_form );
         }
 
         /**
@@ -422,12 +422,12 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
                     }
                 }
 
-                // Support to "webhook" option (rename field value)
+                // Support to "actionnetwork" option (rename field value)
                 $key = $tag->name;
-                $webhook_key = $tag->get_option( 'webhook' );
+                $actionnetwork_key = $tag->get_option( 'actionnetwork' );
 
-                if ( ! empty( $webhook_key ) && ! empty( $webhook_key[0] ) ) {
-                    $key = $webhook_key[0];
+                if ( ! empty( $actionnetwork_key ) && ! empty( $actionnetwork_key[0] ) ) {
+                    $key = $actionnetwork_key[0];
                 }
 
                 $data[ $key ] = $value;
@@ -483,12 +483,12 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
         }
 
         /**
-         * Check we can submit a form to Zapier
+         * Check we can submit a form to ActionNetwork
          *
          * @since    1.0.0
          * @param    obj                $contact_form   ContactForm Obj
          */
-        private function can_submit_to_zapier( $contact_form ) {
+        private function can_submit_to_actionnetwork( $contact_form ) {
             $properties = $contact_form->prop( self::METADATA );
 
             if ( empty( $properties ) || empty( $properties['activate'] ) || empty( $properties['hook_url'] ) ) {

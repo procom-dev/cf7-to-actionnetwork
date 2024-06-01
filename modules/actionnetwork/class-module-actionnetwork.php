@@ -1,9 +1,9 @@
 <?php
 /**
- * CFTZ_Module_Zapier
+ * CFTZ_Module_ActionNetwork
  *
- * @package         Cf7_To_Zapier
- * @subpackage      CFTZ_Module_Zapier
+ * @package         Cf7_To_ActionNetwork
+ * @subpackage      CFTZ_Module_ActionNetwork
  * @since           1.0.0
  *
  */
@@ -11,14 +11,14 @@
 // If this file is called directly, call the cops.
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-if ( ! class_exists( 'CFTZ_Module_Zapier' ) ) {
-    class CFTZ_Module_Zapier {
+if ( ! class_exists( 'CFTZ_Module_ActionNetwork' ) ) {
+    class CFTZ_Module_ActionNetwork {
 
         /**
          * The Core object
          *
          * @since    1.0.0
-         * @var      Cf7_To_Zapier    $core   The core class
+         * @var      Cf7_To_ActionNetwork    $core   The core class
          */
         private $core;
 
@@ -27,15 +27,15 @@ if ( ! class_exists( 'CFTZ_Module_Zapier' ) ) {
          *
          * @since    1.0.0
          */
-        const MODULE_SLUG = 'zapier';
+        const MODULE_SLUG = 'actionnetwork';
 
         /**
          * Define the core functionalities into plugin.
          *
          * @since    1.0.0
-         * @param    Cf7_To_Zapier      $core   The Core object
+         * @param    Cf7_To_ActionNetwork      $core   The Core object
          */
-        public function __construct( Cf7_To_Zapier $core ) {
+        public function __construct( Cf7_To_ActionNetwork $core ) {
             $this->core = $core;
         }
 
@@ -46,27 +46,27 @@ if ( ! class_exists( 'CFTZ_Module_Zapier' ) ) {
          * @access   private
          */
         private function define_hooks() {
-            $this->core->add_action( 'ctz_trigger_webhook', array( $this, 'pull_the_trigger' ), 10, 5 );
+            $this->core->add_action( 'ctz_trigger_actionnetwork', array( $this, 'pull_the_trigger' ), 10, 5 );
         }
 
         /**
-         * Send data to Zapier
+         * Send data to ActionNetwork
          *
          * @since    1.0.0
          * @access   private
          */
         public function pull_the_trigger( array $data, $hook_url, $properties, $contact_form ) {
             /**
-             * Filter: ctz_ignore_default_webhook
+             * Filter: ctz_ignore_default_actionnetwork
              *
-             * The 'ctz_ignore_default_webhook' filter can be used to ignore
+             * The 'ctz_ignore_default_actionnetwork' filter can be used to ignore
              * core request, if you want to trigger your own request.
              *
-             * add_filter( 'ctz_ignore_default_webhook', '__return_true' );
+             * add_filter( 'ctz_ignore_default_actionnetwork', '__return_true' );
              *
              * @since    2.3.0
              */
-            if ( apply_filters( 'ctz_ignore_default_webhook', false ) ) {
+            if ( apply_filters( 'ctz_ignore_default_actionnetwork', false ) ) {
                 return;
             }
 
@@ -79,8 +79,8 @@ if ( ! class_exists( 'CFTZ_Module_Zapier' ) ) {
             /**
              * Filter: ctz_hook_url
              *
-             * The 'ctz_hook_url' filter webhook URL so developers can use form
-             * data or other information to change webhook URL.
+             * The 'ctz_hook_url' filter actionnetwork URL so developers can use form
+             * data or other information to change actionnetwork URL.
              *
              * @since    2.1.4
              */
@@ -105,7 +105,7 @@ if ( ! class_exists( 'CFTZ_Module_Zapier' ) ) {
              * Action: ctz_post_request_result
              *
              * You can perform a action with the result of the request.
-             * By default we do nothing but you can throw a Exception in webhook errors.
+             * By default we do nothing but you can throw a Exception in actionnetwork errors.
              *
              * @since    1.4.0
              */
