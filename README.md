@@ -1,6 +1,6 @@
 # CF7 to ActionNetwork #
-**Contributors:** [procom.dev](https://procom.dev), [Mário Valney](https://mariovalney.com/me) 
-**Tags:** cf7, contact form, actionnetwork, integration, contact form 7 
+**Contributors:** [procom.dev](https://procom.dev), [Mário Valney](https://mariovalney.com/me)  
+**Tags:** cf7, contact form, actionnetwork, integration, contact form 7  
 **Requires at least:** 4.7  
 **Tested up to:** 6.4  
 **Stable tag:** trunk  
