@@ -343,6 +343,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
                      *
                      * @since  1.0.0
                      */
+                    
                     do_action( 'ctz_trigger_actionnetwork', $data, $hook_url, $properties, $contact_form );
                 } catch (Exception $exception) {
                     $errors[] = array(
