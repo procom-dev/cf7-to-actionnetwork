@@ -5,11 +5,11 @@
  * @since             1.0.0
  *
  * Plugin Name:       CF7 to ActionNetwork
- * Plugin URI:        https://github.com/mariovalney/cf7-to-actionnetwork
- * Description:       Use Contact Form 7 as a trigger to any actionnetwork like ActionNetwork!
- * Version:           3.0.3
- * Author:            Mário Valney
- * Author URI:        http://mariovalney.com/me
+ * Plugin URI:        https://github.com/procom-dev/cf7-to-actionnetwork
+ * Description:       Use Contact Form 7 to send data directly to ActionNetwork with automatic field mapping!
+ * Version:           1.0.0
+ * Author:            procom.dev
+ * Author URI:        https://procom.dev
  * Text Domain:       cf7-to-actionnetwork
  * Domain Path:       /languages
  *

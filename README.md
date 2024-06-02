@@ -1,6 +1,6 @@
 # CF7 to ActionNetwork #
-**Contributors:** procom.dev  
-**Tags:** cf7, contact form, actionnetwork, integration, contact form 7, actionnetwork, mariovalney  
+**Contributors:** [procom.dev](https://procom.dev), [Mário Valney](https://mariovalney.com/me) 
+**Tags:** cf7, contact form, actionnetwork, integration, contact form 7 
 **Requires at least:** 4.7  
 **Tested up to:** 6.4  
 **Stable tag:** trunk  
@@ -57,7 +57,7 @@ No. The intention here is to integrate CF7 with ActionNetwork.
 #### My sent data is empty
 Please, visit the [support forum](https://wordpress.org/support/plugin/cf7-to-actionnetwork/) for help.
 
-#### Can I sent it to a non-ActionNEtwork webhook?
+#### Can I sent it to a non-ActionNetwork webhook?
 If you want to send data to a custom webhook, use this other plugin: [CF7 to Webhook](https://github.com/mariovalney/cf7-to-zapier).
 
 #### How can I upload files and send links to ActionNetwork?
@@ -71,7 +71,7 @@ You can add an "actionnetwork" option to your field in the form edit tab. It’s
 Brazilian developer who is part of the [WordPress community](https://profiles.wordpress.org/mariovalney).
 
 ### Can I help you?
-Yes! Visit the [GitHub repository](https://github.com/mariovalney/cf7-to-actionnetwork).
+Yes! Visit the [GitHub repository](https://github.com/procom-dev/cf7-to-actionnetwork).
 
 ## Installation ##
 
