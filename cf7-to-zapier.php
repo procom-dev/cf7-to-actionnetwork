@@ -1,16 +1,16 @@
 <?php
 /**
  *
- * @package           Cf7_To_Zapier
+ * @package           CF7_To_ActionNetwork
  * @since             1.0.0
  *
- * Plugin Name:       CF7 to Webhook
- * Plugin URI:        https://github.com/mariovalney/cf7-to-zapier
- * Description:       Use Contact Form 7 as a trigger to any webhook like Zapier!
- * Version:           3.0.6
- * Author:            Mário Valney
- * Author URI:        http://mariovalney.com/me
- * Text Domain:       cf7-to-zapier
+ * Plugin Name:       CF7 to ActionNetwork
+ * Plugin URI:        https://procom.dev/
+ * Description:       Use Contact Form 7 to send data to Action Network
+ * Version:           1.0.0
+ * Author:            procom.dev
+ * Author URI:        https://procom.dev/
+ * Text Domain:       cf7-to-actionnetwork
  * Domain Path:       /languages
  *
  */
@@ -18,9 +18,9 @@
 // If this file is called directly, call the cops.
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-if ( ! class_exists( 'Cf7_To_Zapier' ) ) {
+if ( ! class_exists( 'Cf7_To_actionnetwork' ) ) {
 
-    class Cf7_To_Zapier {
+    class Cf7_To_actionnetwork {
 
         /**
          * The array of actions registered with WordPress.
@@ -92,11 +92,11 @@ if ( ! class_exists( 'Cf7_To_Zapier' ) ) {
         private function add_modules() {
             // Require module files:
             require_once plugin_dir_path( __FILE__ ) . 'modules/cf7/class-module-cf7.php';
-            require_once plugin_dir_path( __FILE__ ) . 'modules/zapier/class-module-zapier.php';
+            require_once plugin_dir_path( __FILE__ ) . 'modules/actionnetwork/class-module-actionnetwork.php';
 
             // Instantiate the Module's classes:
             $this->modules['cf7'] = new CFTZ_Module_CF7( $this );
-            $this->modules['zapier'] = new CFTZ_Module_Zapier( $this );
+            $this->modules['actionnetwork'] = new CFTZ_Module_actionnetwork( $this );
         }
 
         /**
@@ -167,7 +167,7 @@ if ( ! class_exists( 'Cf7_To_Zapier' ) ) {
          * @access   private
          */
         public function load_plugin_textdomain() {
-            load_plugin_textdomain( 'cf7-to-zapier', false, basename( dirname( __FILE__ ) ) . '/languages' );
+            load_plugin_textdomain( 'cf7-to-actionnetwork', false, basename( dirname( __FILE__ ) ) . '/languages' );
         }
 
         /**
@@ -210,5 +210,5 @@ if ( ! class_exists( 'Cf7_To_Zapier' ) ) {
 /**
  * Making things happening
  */
-$ctz_core = new Cf7_To_Zapier();
+$ctz_core = new Cf7_To_actionnetwork();
 $ctz_core->run();

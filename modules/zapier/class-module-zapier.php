@@ -1,9 +1,9 @@
 <?php
 /**
- * CFTZ_Module_Zapier
+ * CFTZ_Module_ActionNetwork
  *
- * @package         Cf7_To_Zapier
- * @subpackage      CFTZ_Module_Zapier
+ * @package         Cf7_To_ActionNetwork
+ * @subpackage      CFTZ_Module_ActionNetwork
  * @since           1.0.0
  *
  */
@@ -11,14 +11,14 @@
 // If this file is called directly, call the cops.
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-if ( ! class_exists( 'CFTZ_Module_Zapier' ) ) {
-    class CFTZ_Module_Zapier {
+if ( ! class_exists( 'CFTZ_Module_ActionNetwork' ) ) {
+    class CFTZ_Module_ActionNetwork {
 
         /**
          * The Core object
          *
          * @since    1.0.0
-         * @var      Cf7_To_Zapier    $core   The core class
+         * @var      Cf7_To_ActionNetwork    $core   The core class
          */
         private $core;
 
@@ -27,15 +27,15 @@ if ( ! class_exists( 'CFTZ_Module_Zapier' ) ) {
          *
          * @since    1.0.0
          */
-        const MODULE_SLUG = 'zapier';
+        const MODULE_SLUG = 'actionnetwork';
 
         /**
          * Define the core functionalities into plugin.
          *
          * @since    1.0.0
-         * @param    Cf7_To_Zapier      $core   The Core object
+         * @param    Cf7_To_ActionNetwork      $core   The Core object
          */
-        public function __construct( Cf7_To_Zapier $core ) {
+        public function __construct( Cf7_To_ActionNetwork $core ) {
             $this->core = $core;
         }
 
@@ -50,7 +50,7 @@ if ( ! class_exists( 'CFTZ_Module_Zapier' ) ) {
         }
 
         /**
-         * Send data to Zapier
+         * Send data to ActionNetwork
          *
          * @since    1.0.0
          * @access   private
@@ -70,11 +70,27 @@ if ( ! class_exists( 'CFTZ_Module_Zapier' ) ) {
                 return;
             }
 
+            // Modify the hook URL based on Action Network API Endpoint
+            if (stripos($hook_url, "actionnetwork.org/api/v2/events/") !== false) {
+                $hook_url = rtrim($hook_url, '/') . '/attendances';
+            } elseif (stripos($hook_url, "actionnetwork.org/api/v2/fundraising_pages/") !== false) {
+                $hook_url = rtrim($hook_url, '/') . '/donations';
+            } elseif (stripos($hook_url, "actionnetwork.org/api/v2/advocacy_campaigns/") !== false) {
+                $hook_url = rtrim($hook_url, '/') . '/outreaches';
+            } elseif (stripos($hook_url, "actionnetwork.org/api/v2/petitions/") !== false) {
+                $hook_url = rtrim($hook_url, '/') . '/signatures';
+            } elseif (stripos($hook_url, "actionnetwork.org/api/v2/forms/") !== false) {
+                $hook_url = rtrim($hook_url, '/') . '/submissions';
+            }
+
             $args = array(
                 'method'    => 'POST',
                 'body'      => json_encode( $data ),
                 'headers'   => $this->create_headers($properties['custom_headers'] ?? ''),
             );
+
+            // Add Content-Type header
+            $args['headers']['Content-Type'] = 'application/json';
 
             /**
              * Filter: ctz_hook_url

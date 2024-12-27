@@ -2,7 +2,7 @@
 
 **Contributors:** mariovalney  
 **Donate link:** https://www.paypal.com/donate?campaign_id=9AA82JCSNWNFS  
-**Tags:** cf7, contact form, zapier, integration, webhook  
+**Tags:** cf7, contact form, actionnetwork, integration, webhook  
 **Requires at least:** 4.7  
 **Tested up to:** 6.6  
 **Stable tag:** 3.0.6  
@@ -20,21 +20,21 @@ Webhooks are endpoint (urls) you can send data!
 
 Now you can join both: the best contact form plugin to WordPress and any webhook which receive JSON!
 
-And Zapier?
+And Action Network?
 
-[Zapier (Zapier)](https://zapier.com) is a awesome service to connect your apps and automate workflows!
+[Action Network (Action Network)](https://actionnetwork.com) is a awesome service to connect your apps and automate workflows!
 
-Just activate and configure Zapier to receive data!
+Just activate and configure Action Network to receive data!
 
-Disclaimer: this plugin was created without any encouragement from Zapier or CF7 developers and any webhook/API service.
+Disclaimer: this plugin was created without any encouragement from Action Network or CF7 developers and any webhook/API service.
 
 ### How to Use ###
 
-Easily and quickly! Just activate "Contact Form 7" and "CF7 to Webhook" and configure a URL to send data (or go to Zapier to create your Zap).
+Easily and quickly! Just activate "Contact Form 7" and "CF7 to Webhook" and configure a URL to send data (or go to Action Network to create your Zap).
 
 ### Configuration ###
 
-This is a example to integrate with Zapier:
+This is a example to integrate with Action Network:
 
 1. Create a Zap.
 1. Choose your trigger as "Webhooks" app (Screenshot 2).
@@ -43,15 +43,15 @@ This is a example to integrate with Zapier:
 
 ### Creating your workflow ###
 
-After configuration you can send one form to create a example data into Zapier dashboard. Then you can continue creating your workflow with filters and other apps.
+After configuration you can send one form to create a example data into Action Network dashboard. Then you can continue creating your workflow with filters and other apps.
 
 ### Translations ###
 
-You can [translate CF7 to Webhook](https://translate.wordpress.org/projects/wp-plugins/cf7-to-zapier) to your language.
+You can [translate CF7 to Webhook](https://translate.wordpress.org/projects/wp-plugins/cf7-to-actionnetwork) to your language.
 
 ### Review ###
 
-We would be grateful for a [review here](https://wordpress.org/support/plugin/cf7-to-zapier/reviews/).
+We would be grateful for a [review here](https://wordpress.org/support/plugin/cf7-to-actionnetwork/reviews/).
 
 ### Support ###
 
@@ -65,13 +65,13 @@ We would be grateful for a [review here](https://wordpress.org/support/plugin/cf
 
 Or
 
-* Upload the entire `cf7-to-zapier` folder to the `/wp-content/plugins/` directory.
+* Upload the entire `cf7-to-actionnetwork` folder to the `/wp-content/plugins/` directory.
 
 Then
 
 * Activate the plugin through the 'Plugins' menu in WordPress.
 
-You will find 'Zapier' tab into form configuration.
+You will find 'Action Network' tab into form configuration.
 
 ## Frequently Asked Questions ##
 
@@ -85,15 +85,15 @@ Yes. We support WordPress 5+ and CF7 too.
 
 ### Does it works for forms sent out of CF7? ###
 
-Nope. The intention here is to integrate CF7 to Zapier (and another webhooks).
+Nope. The intention here is to integrate CF7 to Action Network (and another webhooks).
 
-### Can I use it without Zapier? ###
+### Can I use it without Action Network? ###
 
-Yep. We are creating a integration to Zapier webhook, but you can insert any URL to receive a JSON formated data.
+Yep. We are creating a integration to Action Network webhook, but you can insert any URL to receive a JSON formated data.
 
 ### My sent data is empty ###
 
-Please, go to [support forum](https://wordpress.org/support/plugin/cf7-to-zapier/) to get help.
+Please, go to [support forum](https://wordpress.org/support/plugin/cf7-to-actionnetwork/) to get help.
 
 ### How can I submit one form to multiple webhooks? ###
 
@@ -103,11 +103,11 @@ Please, read [this topic](https://wordpress.org/support/topic/make-multiple-webh
 
 ### How can I show webhook errors on form submit? ###
 
-We already show WordPress request errors. If you want to add theatment to webhook errors, please [check this post](https://wordpress.org/support/topic/form-sent-to-zapier-randomly/#post-11249864).
+We already show WordPress request errors. If you want to add theatment to webhook errors, please [check this post](https://wordpress.org/support/topic/form-sent-to-actionnetwork-randomly/#post-11249864).
 
 ### How can I upload files and send link to webhook? ###
 
-If you send a form with file, we will copy this to a directory before CF7 remove it and send the link to Zapier.
+If you send a form with file, we will copy this to a directory before CF7 remove it and send the link to Action Network.
 
 ### How can I rename a field to webhook? ###
 
@@ -131,21 +131,21 @@ Brazilian developer who is part of [WordPress community](https://profiles.wordpr
 
 ### Can I help you? ###
 
-Yes! Visit [GitHub repository](https://github.com/mariovalney/cf7-to-zapier) or [make a donation](https://www.paypal.com/donate?campaign_id=9AA82JCSNWNFS).
+Yes! Visit [GitHub repository](https://github.com/mariovalney/cf7-to-actionnetwork) or [make a donation](https://www.paypal.com/donate?campaign_id=9AA82JCSNWNFS).
 
 ## Screenshots ##
 
 ### 1. CF7 to Webhook configuration ###
 ![1. CF7 to Webhook configuration](http://ps.w.org/cf7-to-webhook/assets/screenshot-1.png)
 
-### 2. Zapier Step 1 - Choosing you app trigger ###
-![2. Zapier Step 1 - Choosing you app trigger](http://ps.w.org/cf7-to-webhook/assets/screenshot-2.png)
+### 2. Action Network Step 1 - Choosing you app trigger ###
+![2. Action Network Step 1 - Choosing you app trigger](http://ps.w.org/cf7-to-webhook/assets/screenshot-2.png)
 
-### 3. Zapier Step 2 - Choosing Catch Hook option ###
-![3. Zapier Step 2 - Choosing Catch Hook option](http://ps.w.org/cf7-to-webhook/assets/screenshot-3.png)
+### 3. Action Network Step 2 - Choosing Catch Hook option ###
+![3. Action Network Step 2 - Choosing Catch Hook option](http://ps.w.org/cf7-to-webhook/assets/screenshot-3.png)
 
-### 4. Zapier Step 3 - Webhook URL (waiting for first data) ###
-![4. Zapier Step 3 - Webhook URL (waiting for first data)](http://ps.w.org/cf7-to-webhook/assets/screenshot-4.png)
+### 4. Action Network Step 3 - Webhook URL (waiting for first data) ###
+![4. Action Network Step 3 - Webhook URL (waiting for first data)](http://ps.w.org/cf7-to-webhook/assets/screenshot-4.png)
 
 
 ## Changelog ##
@@ -272,7 +272,7 @@ Props to @shoreline-chrism
 
 * It's alive!
 * Form configuration.
-* Integration to Zapier webhook.
+* Integration to Action Network webhook.
 * Ignore or not CF7 mail sent.
 
 ## Upgrade Notice ##

@@ -2,7 +2,7 @@
 /**
  * CFTZ_Module_CF7
  *
- * @package         Cf7_To_Zapier
+ * @package         Cf7_To_ActionNetwork
  * @subpackage      CFTZ_Module_CF7
  * @since           1.0.0
  *
@@ -18,7 +18,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
          * The Core object
          *
          * @since    1.0.0
-         * @var      Cf7_To_Zapier    $core   The core class
+         * @var      Cf7_To_ActionNetwork    $core   The core class
          */
         private $core;
 
@@ -40,9 +40,9 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
          * Define the core functionalities into plugin.
          *
          * @since    1.0.0
-         * @param    Cf7_To_Zapier      $core   The Core object
+         * @param    Cf7_To_ActionNetwork      $core   The Core object
          */
-        public function __construct( Cf7_To_Zapier $core ) {
+        public function __construct( Cf7_To_ActionNetwork $core ) {
             $this->core = $core;
         }
 
@@ -218,7 +218,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
         }
 
         /**
-         * Action 'wpcf7_mail_sent' to send data to Zapier
+         * Action 'wpcf7_mail_sent' to send data to ActionNetwork
          *
          * @since    1.0.0
          * @param    obj                $contact_form   ContactForm Obj
@@ -271,7 +271,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
                      * Action: ctz_trigger_webhook
                      *
                      * You can add your own actions to process the hook.
-                     * We send it using CFTZ_Module_Zapier::pull_the_trigger().
+                     * We send it using CFTZ_Module_ActionNetwork::pull_the_trigger().
                      *
                      * @since  1.0.0
                      */
@@ -344,7 +344,6 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
             foreach ( $tags as $tag ) {
                 if ( empty( $tag->name ) ) continue;
 
-                // Regular Tags
                 $value = ( ! empty( $_POST[ $tag->name ] ) ) ? $_POST[ $tag->name ] : '';
 
                 if ( is_array( $value ) ) {
@@ -357,7 +356,6 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
                     $value = stripslashes( $value );
                 }
 
-                // Files
                 if ( $tag->basetype === 'file' && ! empty( $uploaded_files[ $tag->name ] ) ) {
                     $files = $uploaded_files[ $tag->name ];
 
@@ -385,7 +383,6 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
                     }
                 }
 
-                // Support to Pipes
                 $pipes = $tag->pipes;
                 if ( WPCF7_USE_PIPE && $pipes instanceof WPCF7_Pipes && ! $pipes->zero() ) {
                     if ( is_array( $value) ) {
@@ -401,7 +398,6 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
                     }
                 }
 
-                // Support to Free Text on checkbox and radio
                 if ( $tag->has_option( 'free_text' ) && in_array( $tag->basetype, [ 'checkbox', 'radio' ] ) ) {
                     $free_text_label = end( $tag->values );
                     $free_text_name  = $tag->name . '_free_text';
@@ -422,7 +418,6 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
                     }
                 }
 
-                // Support to "webhook" option (rename field value)
                 $key = $tag->name;
                 $webhook_key = $tag->get_option( 'webhook' );
 
@@ -433,13 +428,87 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
                 $data[ $key ] = $value;
             }
 
+            // Adjust data structure for Action Network API
+            $core_fields = [
+                'family_name' => '',
+                'given_name' => '',
+                'postal_code' => '',
+                'address_lines' => [''],
+                'locality' => '',
+                'region' => '',
+                'country' => '',
+                'address' => '',
+                'status' => '',
+                'number' => ''
+            ];
+
+            $person_data = [
+                "person" => [
+                    "family_name" => "",
+                    "given_name" => "",
+                    "custom_fields" => [],
+                    "postal_addresses" => [
+                        [
+                            "postal_code" => "",
+                            "address_lines" => [""],
+                            "locality" => "",
+                            "region" => "",
+                            "country" => ""
+                        ]
+                    ],
+                    "email_addresses" => [
+                        [
+                            "address" => "",
+                            "status" => ""
+                        ]
+                    ],
+                    "phone_numbers" => [
+                        [
+                            "number" => "",
+                            "status" => ""
+                        ]
+                    ]
+                ],
+                "triggers" => [
+                    "autoresponse" => [
+                        "enabled" => true
+                    ]
+                ],
+                "action_network:referrer_data" => [
+                    "source" => 'CF7',
+                    "website" => isset($_SERVER['HTTP_REFERER']) ? esc_url_raw($_SERVER['HTTP_REFERER']) : ''
+                ]
+            ];
+
+            foreach ($data as $key => $value) {
+                if (in_array($key, array_keys($core_fields))) {
+                    if ($key == 'address') {
+                        $person_data["person"]["email_addresses"][0]["address"] = $value;
+                    } elseif ($key == 'status') {
+                        $person_data["person"]["email_addresses"][0]["status"] = $value;
+                    } elseif ($key == 'number') {
+                        $person_data["person"]["phone_numbers"][0]["number"] = $value;
+                    } elseif (in_array($key, ['postal_code', 'address_lines', 'locality', 'region', 'country'])) {
+                        if ($key == 'address_lines') {
+                            $person_data["person"]["postal_addresses"][0][$key] = is_array($value) ? $value : [$value];
+                        } else {
+                            $person_data["person"]["postal_addresses"][0][$key] = $value;
+                        }
+                    } else {
+                        $person_data["person"][$key] = $value;
+                    }
+                } else {
+                    $person_data["person"]["custom_fields"][$key] = $value;
+                }
+            }
+
             /**
              * You can filter data retrieved from Contact Form tags with 'ctz_get_data_from_contact_form'
              *
              * @param $data             Array 'field => data'
              * @param $contact_form     ContactForm obj from 'wpcf7_mail_sent' action
              */
-            return apply_filters( 'ctz_get_data_from_contact_form', $data, $contact_form );
+            return apply_filters( 'ctz_get_data_from_contact_form', $person_data, $contact_form );
         }
 
         /**
@@ -483,7 +552,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
         }
 
         /**
-         * Check we can submit a form to Zapier
+         * Check we can submit a form to ActionNetwork
          *
          * @since    1.0.0
          * @param    obj                $contact_form   ContactForm Obj
