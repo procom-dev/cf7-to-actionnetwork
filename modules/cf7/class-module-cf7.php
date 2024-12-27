@@ -34,7 +34,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
          *
          * @since    1.0.0
          */
-        const METADATA = 'ctz_zapier';
+        const METADATA = 'ctz_actionnetwork';
 
         /**
          * Define the core functionalities into plugin.
@@ -82,7 +82,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
             }
 
             echo '<div class="notice notice-error is-dismissible">';
-            echo '<p>' . sprintf( __( "You need to install/activate %s Contact Form 7%s plugin to use %s CF7 to Webhook %s", 'cf7-to-zapier' ), '<a href="http://contactform7.com/" target="_blank">', '</a>', '<strong>', '</strong>' );
+            echo '<p>' . sprintf( __( "You need to install/activate %s Contact Form 7%s plugin to use %s CF7 to Webhook %s", 'cf7-to-actionnetwork' ), '<a href="http://contactform7.com/" target="_blank">', '</a>', '<strong>', '</strong>' );
 
             $screen = get_current_screen();
             if ( $screen->id == 'plugins' ) {
@@ -96,7 +96,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
                 $url = 'plugin-install.php?tab=search&s=Contact+form+7';
             }
 
-            echo '. <a href="' . admin_url( $url ) . '">' . __( "Do it now?", "cf7-to-zapier" ) . '</a></p>';
+            echo '. <a href="' . admin_url( $url ) . '">' . __( "Do it now?", "cf7-to-actionnetwork" ) . '</a></p>';
             echo '</div>';
         }
 
@@ -108,7 +108,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
          */
         public function wpcf7_editor_panels( $panels ) {
             $panels['webhook-panel'] = array(
-                'title'     => __( 'Webhook', 'cf7-to-zapier' ),
+                'title'     => __( 'Action Network', 'cf7-to-actionnetwork' ),
                 'callback'  => [ $this, 'webhook_panel_html' ],
             );
 
@@ -116,7 +116,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
         }
 
         /**
-         * Add zapier panel HTML
+         * Add actionnetwork panel HTML
          *
          * @since    1.0.0
          * @param    WPCF7_ContactForm  $contactform    Current ContactForm Obj
@@ -210,7 +210,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
         public function wpcf7_skip_mail( $skip_mail, $contact_form ) {
             $properties = $contact_form->prop( self::METADATA );
 
-            if ( $this->can_submit_to_zapier( $contact_form ) ) {
+            if ( $this->can_submit_to_actionnetwork( $contact_form ) ) {
                 return empty( $properties['send_mail'] );
             }
 
@@ -226,7 +226,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
         public function wpcf7_mail_sent( $contact_form ) {
             $properties = $contact_form->prop( self::METADATA );
 
-            if ( ! $this->can_submit_to_zapier( $contact_form ) ) {
+            if ( ! $this->can_submit_to_actionnetwork( $contact_form ) ) {
                 return;
             }
 
@@ -476,7 +476,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
                 ],
                 "action_network:referrer_data" => [
                     "source" => 'CF7',
-                    "website" => isset($_SERVER['HTTP_REFERER']) ? esc_url_raw($_SERVER['HTTP_REFERER']) : ''
+                    "website" => isset($_SERVER['HTTP_REFERER']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_REFERER'])) : ''
                 ]
             ];
 
@@ -557,7 +557,7 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
          * @since    1.0.0
          * @param    obj                $contact_form   ContactForm Obj
          */
-        private function can_submit_to_zapier( $contact_form ) {
+        private function can_submit_to_actionnetwork( $contact_form ) {
             $properties = $contact_form->prop( self::METADATA );
 
             if ( empty( $properties ) || empty( $properties['activate'] ) || empty( $properties['hook_url'] ) ) {
