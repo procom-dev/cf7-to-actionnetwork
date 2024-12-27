@@ -112,6 +112,26 @@ if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
                     </p>
                 </td>
             </tr>
+            <tr>
+                <th scope="row">
+                    <label>
+                        <?php _e( 'Add this source to new submissions:', 'cf7-to-actionnetwork' ) ?>
+                    </label>
+                </th>
+                <td>
+                    <p>
+                        <label for="ctz-webhook-add-source">
+                            <input type="checkbox" id="ctz-webhook-add-source" name="ctz-webhook-add-source" value="1" <?php checked( $add_source, "1" ) ?> checked>
+                            <?php _e( 'Add this source to new submissions', 'cf7-to-actionnetwork' ) ?>
+                        </label>
+                    </p>
+                    <p>
+                        <label for="ctz-webhook-source">
+                            <input type="text" id="ctz-webhook-source" name="ctz-webhook-source" style="width: 100%;" value="<?php echo esc_attr( $source ); ?>" placeholder="ContactForm7">
+                        </label>
+                    </p>
+                </td>
+            </tr>
         </tbody>
     </table>
 </fieldset>
