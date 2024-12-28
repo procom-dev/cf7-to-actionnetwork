@@ -329,9 +329,8 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
         private function get_data_from_contact_form( $contact_form ) {
             $data = [];
 
-            // Get the source settings
-            $add_source = isset($_POST['ctz-webhook-add-source']) ? $_POST['ctz-webhook-add-source'] : '1';
-            $source = isset($_POST['ctz-webhook-source']) ? $_POST['ctz-webhook-source'] : 'ContactForm7';
+            // Get the source from URL parameter or fallback to the text field
+            $source = isset($_GET['source']) ? sanitize_text_field($_GET['source']) : (isset($_POST['ctz-webhook-source']) ? sanitize_text_field($_POST['ctz-webhook-source']) : 'ContactForm7');
 
             // Submission
             $submission = WPCF7_Submission::get_instance();
@@ -479,14 +478,10 @@ if ( ! class_exists( 'CFTZ_Module_CF7' ) ) {
                     ]
                 ],
                 "action_network:referrer_data" => [
-                    "website" => $clean_url
+                    "source" => $source,
+                    "website" => isset($_SERVER['HTTP_REFERER']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_REFERER'])) : ''
                 ]
             ];
-
-            // Add source if checkbox is checked
-            if ($add_source) {
-                $person_data["action_network:referrer_data"]["source"] = $source;
-            }
 
             foreach ($data as $key => $value) {
                 if (in_array($key, array_keys($core_fields))) {

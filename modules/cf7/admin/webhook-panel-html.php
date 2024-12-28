@@ -12,6 +12,7 @@ $hook_url = [];
 $send_mail = '0';
 $special_mail_tags = '';
 $custom_headers = '';
+$source = 'ContactForm7';
 
 if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
     $properties = $contactform->prop( CFTZ_Module_CF7::METADATA );
@@ -35,6 +36,10 @@ if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
     if ( isset( $properties['custom_headers'] ) ) {
         $custom_headers = $properties['custom_headers'];
     }
+
+    if ( isset( $properties['source'] ) ) {
+        $source = $properties['source'];
+    }
 }
 
 ?>
@@ -45,90 +50,56 @@ if ( is_a( $contactform, 'WPCF7_ContactForm' ) ) {
 
 <fieldset>
     <legend>
-        <?php _e( 'In these options you can activate or deactivate Action Network integration.', 'cf7-to-actionnetwork' ); ?>
+        <?php _e( 'Configure the integration with Action Network.', 'cf7-to-actionnetwork' ); ?>
     </legend>
 
     <table class="form-table">
         <tbody>
             <tr>
                 <th scope="row">
-                    <label>
-                        <?php _e( 'Integrate', 'cf7-to-actionnetwork' ) ?>
+                    <label for="ctz-webhook-activate">
+                        <?php _e( 'Activate Integration', 'cf7-to-actionnetwork' ) ?>
                     </label>
                 </th>
                 <td>
-                    <p>
-                        <label for="ctz-webhook-activate">
-                            <input type="checkbox" id="ctz-webhook-activate" name="ctz-webhook-activate" value="1" <?php checked( $activate, "1" ) ?>>
-                            <?php _e( 'Send to Action Network', 'cf7-to-actionnetwork' ) ?>
-                        </label>
+                    <input type="checkbox" id="ctz-webhook-activate" name="ctz-webhook-activate" value="1" <?php checked( $activate, "1" ) ?>>
+                    <span class="description"><?php _e( 'Enable sending form data to Action Network.', 'cf7-to-actionnetwork' ) ?></span>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="ctz-webhook-hook-url">
+                        <?php _e( 'Action Network API Endpoint', 'cf7-to-actionnetwork' ) ?>
+                    </label>
+                </th>
+                <td>
+                    <input type="text" id="ctz-webhook-hook-url" name="ctz-webhook-hook-url" style="width: 100%;" value="<?php echo esc_attr( implode( PHP_EOL, $hook_url ) ) ?>">
+                    <p class="description">
+                        <?php _e( 'Enter the Action Network API Endpoint URL. You can add multiple URLs, one per line.', 'cf7-to-actionnetwork' ); ?>
                     </p>
                 </td>
             </tr>
             <tr>
                 <th scope="row">
-                    <label>
-                        <?php _e( 'Action NEtowrk form API Endpoint', 'cf7-to-actionnetwork' ) ?>
-                    </label>
-                </th>
-                <td>
-                    <p>
-                        <label for="ctz-webhook-hook-url">
-                            <input type="text" id="ctz-webhook-hook-url" name="ctz-webhook-hook-url" style="width: 100%;" value="<?php echo esc_attr( implode( PHP_EOL, $hook_url ) ) ?>">
-                        </label>
-                    </p>
-                    <?php if ( $activate && empty( $hook_url ) ): ?>
-                        <p class="description" style="color: #D00;">
-                            <?php _e( 'You should insert webhook URL here to finish configuration.' ); ?>
-                        </p>
-                    <?php else: ?>
-                        <p class="description" style="font-size: 13px;">
-                            <?php
-                                _e( 'You can add multiple webhook: one per line' );
-
-                                echo '<br>';
-
-                                printf(
-                                    __( 'And use placeholders to be replaced by form data: %s', 'cf7-to-actionnetwork' ),
-                                    '<span style="font-family: monospace; font-size: 12px; font-weight: bold;">[your-field]</span>'
-                                );
-                            ?>
-                        </p>
-                    <?php endif; ?>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">
-                    <label>
+                    <label for="ctz-webhook-send-mail">
                         <?php _e( 'Send CF7 Mail', 'cf7-to-actionnetwork' ) ?>
                     </label>
                 </th>
                 <td>
-                    <p>
-                        <label for="ctz-webhook-send-mail">
-                            <input type="checkbox" id="ctz-webhook-send-mail" name="ctz-webhook-send-mail" value="1" <?php checked( $send_mail, "1" ) ?>>
-                            <?php _e( 'Send CF7 mail as usually', 'cf7-to-actionnetwork' ) ?>
-                        </label>
-                    </p>
+                    <input type="checkbox" id="ctz-webhook-send-mail" name="ctz-webhook-send-mail" value="1" <?php checked( $send_mail, "1" ) ?>>
+                    <span class="description"><?php _e( 'Send the Contact Form 7 email as usual.', 'cf7-to-actionnetwork' ) ?></span>
                 </td>
             </tr>
             <tr>
                 <th scope="row">
-                    <label>
-                        <?php _e( 'Add this source to new submissions:', 'cf7-to-actionnetwork' ) ?>
+                    <label for="ctz-webhook-source">
+                        <?php _e( 'Source', 'cf7-to-actionnetwork' ) ?>
                     </label>
                 </th>
                 <td>
-                    <p>
-                        <label for="ctz-webhook-add-source">
-                            <input type="checkbox" id="ctz-webhook-add-source" name="ctz-webhook-add-source" value="1" <?php checked( $add_source, "1" ) ?> checked>
-                            <?php _e( 'Add this source to new submissions', 'cf7-to-actionnetwork' ) ?>
-                        </label>
-                    </p>
-                    <p>
-                        <label for="ctz-webhook-source">
-                            <input type="text" id="ctz-webhook-source" name="ctz-webhook-source" style="width: 100%;" value="<?php echo esc_attr( $source ); ?>" placeholder="ContactForm7">
-                        </label>
+                    <input type="text" id="ctz-webhook-source" name="ctz-webhook-source" style="width: 100%;" value="<?php echo esc_attr( $source ); ?>" placeholder="ContactForm7">
+                    <p class="description">
+                        <?php _e( 'Enter the source to be used if the URL parameter "source" is not present.', 'cf7-to-actionnetwork' ); ?>
                     </p>
                 </td>
             </tr>
